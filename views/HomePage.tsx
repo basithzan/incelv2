@@ -371,14 +371,14 @@ export function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16 max-w-[1400px] mx-auto px-6 lg:px-12"
+            className="text-center mb-4 md:mb-6 max-w-[1400px] mx-auto px-6 lg:px-12"
           >
             <motion.div
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 200 }}
-              className="inline-block mb-6"
+              className="inline-block mb-3"
             >
               <span 
                 className="text-white font-semibold px-8 py-3 rounded-full inline-flex items-center justify-center shadow-lg"
@@ -391,7 +391,7 @@ export function HomePage() {
             </motion.div>
             
             <motion.h2 
-              className="mb-6 text-4xl lg:text-6xl relative z-10"
+              className="mb-2 md:mb-3 text-4xl lg:text-6xl relative z-10"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -416,11 +416,13 @@ export function HomePage() {
             </motion.h2>
           </motion.div>
 
-          {/* Marquee Container */}
-          <div className="w-full overflow-x-hidden py-8">
+          {/* Testimonials Marquee */}
+          <div className="w-full overflow-x-hidden pt-2 pb-4 md:pt-3 md:pb-6">
             <motion.div 
-              className="flex gap-8"
-              animate={{ x: [0, -1224] }}
+              className="inline-flex gap-4 md:gap-6"
+              animate={{ 
+                x: [0, -1100]
+              }}
               transition={{
                 x: {
                   repeat: Infinity,
@@ -450,32 +452,38 @@ export function HomePage() {
                     location: 'Abuja, Nigeria',
                     text: 'Best travel agency! They handled everything from flights to accommodations. Our Maldives holiday was a dream come true.',
                     rating: 5
+                  },
+                  {
+                    name: 'Michael Chen',
+                    location: 'Nairobi, Kenya',
+                    text: 'Excellent customer service and seamless travel arrangements. Our family trip to Turkey was unforgettable. Thank you Incel Tourism!',
+                    rating: 5
                   }
                 ].map((testimonial, index) => (
                   <motion.div
                     key={`${setIndex}-${index}`}
                     whileHover={{ y: -8, scale: 1.02 }}
                     transition={{ duration: 0.3 }}
-                    className="bg-white rounded-3xl p-8 shadow-lg border border-neutral-100 hover:shadow-2xl transition-shadow relative overflow-hidden group flex-shrink-0 w-[300px] sm:w-[350px] md:w-[400px]"
+                    className="bg-white rounded-3xl p-4 md:p-6 shadow-lg border border-neutral-100 hover:shadow-2xl transition-shadow relative overflow-hidden group flex-shrink-0 w-[200px] sm:w-[220px] md:w-[280px] h-[200px] sm:h-[220px] md:h-[280px] flex flex-col"
                   >
-                    <div className="flex gap-1 mb-4 relative z-10">
+                    <div className="flex gap-1 mb-2 relative z-10">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <span
                           key={i}
-                          className="text-neutral-900 text-xl"
+                          className="text-neutral-900 text-sm md:text-base"
                         >
                           ★
                         </span>
                       ))}
                     </div>
                     
-                    <p className="text-neutral-700 mb-6 leading-relaxed relative z-10">
+                    <p className="text-neutral-700 mb-3 leading-relaxed relative z-10 text-xs md:text-sm line-clamp-3 flex-1">
                       "{testimonial.text}"
                     </p>
                     
-                    <div className="relative z-10">
-                      <p className="font-semibold text-neutral-900">{testimonial.name}</p>
-                      <p className="text-neutral-500">{testimonial.location}</p>
+                    <div className="relative z-10 mt-auto">
+                      <p className="font-semibold text-neutral-900 text-xs md:text-sm">{testimonial.name}</p>
+                      <p className="text-neutral-500 text-[10px] md:text-xs">{testimonial.location}</p>
                     </div>
                     
                     {/* Hover gradient effect */}
