@@ -5,7 +5,7 @@ import { Footer } from '../../components/Footer';
 import { WhatsAppButton } from '../../components/WhatsAppButton';
 import { ScrollProgress } from '../../components/ScrollProgress';
 import { Toaster } from '../../components/ui/sonner';
-import { PackagesPage } from '../../pages/PackagesPage';
+import { PackagesPage } from '../../views/PackagesPage';
 
 export default function Packages() {
   return (

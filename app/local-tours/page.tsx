@@ -5,7 +5,7 @@ import { Footer } from '../../components/Footer';
 import { WhatsAppButton } from '../../components/WhatsAppButton';
 import { ScrollProgress } from '../../components/ScrollProgress';
 import { Toaster } from '../../components/ui/sonner';
-import { LocalToursPage } from '../../pages/LocalToursPage';
+import { LocalToursPage } from '../../views/LocalToursPage';
 
 export default function LocalTours() {
   return (

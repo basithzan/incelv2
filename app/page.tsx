@@ -5,7 +5,7 @@ import { Footer } from '../components/Footer';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import { ScrollProgress } from '../components/ScrollProgress';
 import { Toaster } from '../components/ui/sonner';
-import { HomePage } from '../pages/HomePage';
+import { HomePage } from '../views/HomePage';
 
 export default function Home() {
   return (

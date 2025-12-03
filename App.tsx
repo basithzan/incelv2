@@ -6,14 +6,14 @@ import { Footer } from './components/Footer';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { ScrollProgress } from './components/ScrollProgress';
 import { Toaster } from './components/ui/sonner';
-import { HomePage } from './pages/HomePage';
-import { AboutPage } from './pages/AboutPage';
-import { PackagesPage } from './pages/PackagesPage';
-import { LocalToursPage } from './pages/LocalToursPage';
-import { UAEVisaPage } from './pages/UAEVisaPage';
-import { GlobalVisaPage } from './pages/GlobalVisaPage';
-import { ContactPage } from './pages/ContactPage';
-import { AccountPage } from './pages/AccountPage';
+import { HomePage } from './views/HomePage';
+import { AboutPage } from './views/AboutPage';
+import { PackagesPage } from './views/PackagesPage';
+import { LocalToursPage } from './views/LocalToursPage';
+import { UAEVisaPage } from './views/UAEVisaPage';
+import { GlobalVisaPage } from './views/GlobalVisaPage';
+import { ContactPage } from './views/ContactPage';
+import { AccountPage } from './views/AccountPage';
 
 function App() {
   const [currentRoute, setCurrentRoute] = useState(window.location.hash || '#/');

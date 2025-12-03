@@ -46,7 +46,7 @@ export function PackagesPage() {
               <span className="text-neutral-700">Filter by:</span>
             </div>
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-full sm:w-[180px]">
                 <SelectValue placeholder="Package Type" />
               </SelectTrigger>
               <SelectContent>
@@ -57,7 +57,7 @@ export function PackagesPage() {
               </SelectContent>
             </Select>
             <Select value={priceFilter} onValueChange={setPriceFilter}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-full sm:w-[180px]">
                 <SelectValue placeholder="Budget" />
               </SelectTrigger>
               <SelectContent>

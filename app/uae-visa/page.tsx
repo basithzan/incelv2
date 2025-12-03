@@ -5,7 +5,7 @@ import { Footer } from '../../components/Footer';
 import { WhatsAppButton } from '../../components/WhatsAppButton';
 import { ScrollProgress } from '../../components/ScrollProgress';
 import { Toaster } from '../../components/ui/sonner';
-import { UAEVisaPage } from '../../pages/UAEVisaPage';
+import { UAEVisaPage } from '../../views/UAEVisaPage';
 
 export default function UAEVisa() {
   return (

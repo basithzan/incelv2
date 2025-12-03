@@ -34,7 +34,7 @@ export function LocalToursPage() {
               <span className="text-neutral-700">Filter by:</span>
             </div>
             <Select value={cityFilter} onValueChange={setCityFilter}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-full sm:w-[180px]">
                 <SelectValue placeholder="City" />
               </SelectTrigger>
               <SelectContent>

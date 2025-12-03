@@ -102,7 +102,7 @@ export function Navigation() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-2xl py-3 min-w-[240px] border border-neutral-100 overflow-hidden"
+                      className="absolute top-full left-0 mt-2 bg-white rounded-2xl shadow-2xl py-3 min-w-[200px] sm:min-w-[240px] border border-neutral-100 overflow-hidden"
                     >
                       {item.submenu.map((subitem) => (
                         <Link

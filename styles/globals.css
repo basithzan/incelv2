@@ -136,14 +136,16 @@
     @apply border-border outline-ring/50;
   }
 
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Poppins', sans-serif;
-  }
-
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 }
 

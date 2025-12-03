@@ -55,7 +55,7 @@ export function HomePage() {
   };
 
   return (
-    <div className="overflow-visible">
+    <div className="overflow-x-hidden">
       <HeroWithSearch
         heading="Explore the world with Incel Tourism"
         subheading="Visas, tours & curated packages at the best value"
@@ -456,7 +456,7 @@ export function HomePage() {
                     key={`${setIndex}-${index}`}
                     whileHover={{ y: -8, scale: 1.02 }}
                     transition={{ duration: 0.3 }}
-                    className="bg-white rounded-3xl p-8 shadow-lg border border-neutral-100 hover:shadow-2xl transition-shadow relative overflow-hidden group flex-shrink-0 w-[400px]"
+                    className="bg-white rounded-3xl p-8 shadow-lg border border-neutral-100 hover:shadow-2xl transition-shadow relative overflow-hidden group flex-shrink-0 w-[300px] sm:w-[350px] md:w-[400px]"
                   >
                     <div className="flex gap-1 mb-4 relative z-10">
                       {[...Array(testimonial.rating)].map((_, i) => (

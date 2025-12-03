@@ -9,7 +9,7 @@ import { Toaster } from '../../../components/ui/sonner';
 
 export default function TourDetail() {
   const params = useParams();
-  const tourId = params.id as string;
+  const tourId = (params?.id as string) || '';
   
   return (
     <div className="min-h-screen flex flex-col">

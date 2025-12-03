@@ -5,7 +5,7 @@ import { Footer } from '../../components/Footer';
 import { WhatsAppButton } from '../../components/WhatsAppButton';
 import { ScrollProgress } from '../../components/ScrollProgress';
 import { Toaster } from '../../components/ui/sonner';
-import { AboutPage } from '../../pages/AboutPage';
+import { AboutPage } from '../../views/AboutPage';
 
 export default function AboutUs() {
   return (

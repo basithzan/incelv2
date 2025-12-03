@@ -9,7 +9,7 @@ import { Toaster } from '../../../components/ui/sonner';
 
 export default function PackageDetail() {
   const params = useParams();
-  const packageId = params.id as string;
+  const packageId = (params?.id as string) || '';
   
   const packages = [
     {
