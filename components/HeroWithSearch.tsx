@@ -109,22 +109,22 @@ export function HeroWithSearch({ heading, subheading, backgroundImage }: HeroWit
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-center mb-8 md:mb-16 -mt-16 md:-mt-24"
+          className="text-center mb-6 md:mb-16 -mt-8 md:-mt-24"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
-            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-xl border border-white/30 rounded-full px-6 py-3 mb-8 shadow-2xl"
+            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-xl border border-white/30 rounded-full px-4 py-2 md:px-6 md:py-3 mb-4 md:mb-8 shadow-2xl"
           >
-            <span className="text-white font-medium">UAE Licensed Travel Experts</span>
+            <span className="text-white font-medium text-xs md:text-base">UAE Licensed Travel Experts</span>
           </motion.div>
           
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-5xl lg:text-6xl xl:text-7xl font-bold mb-2 drop-shadow-2xl"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-2 drop-shadow-2xl"
             style={{ lineHeight: '1.2' }}
           >
             <GradientText
@@ -140,7 +140,7 @@ export function HeroWithSearch({ heading, subheading, backgroundImage }: HeroWit
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-xl lg:text-2xl text-white/95 drop-shadow-lg max-w-3xl mx-auto leading-relaxed mb-8"
+            className="text-sm sm:text-base md:text-xl lg:text-2xl text-white/95 drop-shadow-lg max-w-3xl mx-auto leading-relaxed mb-4 md:mb-8 px-2"
           >
             {subheading}
           </motion.p>
@@ -153,7 +153,7 @@ export function HeroWithSearch({ heading, subheading, backgroundImage }: HeroWit
           >
             <Button
               onClick={() => setIsBookNowOpen(true)}
-              className="bg-yellow-400 hover:bg-yellow-500 text-neutral-900 border-0 shadow-lg hover:shadow-xl transition-all px-8 py-6 text-lg font-semibold rounded-full"
+              className="bg-yellow-400 hover:bg-yellow-500 text-neutral-900 border-0 shadow-lg hover:shadow-xl transition-all px-6 py-4 md:px-8 md:py-6 text-base md:text-lg font-semibold rounded-full"
             >
               Book Now
             </Button>

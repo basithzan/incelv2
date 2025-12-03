@@ -247,7 +247,7 @@ export function HomePage() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-neutral-500 mt-4"
+              className="text-neutral-500 mt-4 pb-6 md:pb-8"
             >
               Over 500+ destinations worldwide • Trusted by 10,000+ travelers
             </motion.p>

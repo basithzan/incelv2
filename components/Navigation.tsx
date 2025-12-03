@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Home, Info, Package, MapPin, FileText, Phone } from 'lucide-react';
 import { Button } from './ui/button';
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from './ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle, SheetDescription } from './ui/sheet';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Input } from './ui/input';
@@ -14,27 +14,29 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 const menuItems = [
-  { label: 'Home', href: '/' },
-  { label: 'About Us', href: '/about-us' },
+  { label: 'Home', href: '/', icon: Home },
+  { label: 'About Us', href: '/about-us', icon: Info },
   { 
     label: 'Packages', 
     href: '/packages',
+    icon: Package,
     submenu: [
       { label: 'Inbound Packages', href: '/packages?type=inbound' },
       { label: 'Outbound Packages', href: '/packages?type=outbound' },
       { label: 'Hajj & Umrah', href: '/packages?type=umrah' }
     ]
   },
-  { label: 'Local Tours', href: '/local-tours' },
+  { label: 'Local Tours', href: '/local-tours', icon: MapPin },
   { 
     label: 'Visa', 
     href: '/uae-visa',
+    icon: FileText,
     submenu: [
       { label: 'UAE Visa', href: '/uae-visa' },
       { label: 'Global Visa', href: '/global-visa' }
     ]
   },
-  { label: 'Contact', href: '/contact' }
+  { label: 'Contact', href: '/contact', icon: Phone }
 ];
 
 export function Navigation() {
@@ -163,109 +165,137 @@ export function Navigation() {
               </motion.button>
             </SheetTrigger>
             <SheetContent side="right" className="w-full sm:max-w-md bg-white p-0 border-l border-neutral-200">
-              {/* Header Section with Logo */}
-              <div className="bg-gradient-to-br from-primary to-accent p-6 pb-8">
-                <SheetHeader>
-                  <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                  >
-                    <ImageWithFallback 
-                      src="https://inceltourism.com/wp-content/uploads/elementor/thumbs/logowhite-qhzbd7e4e3m50i16db2lblzaxkieai6seqqrl7p81s.png"
-                      alt="Incel Tourism"
-                      className="h-12 w-auto mb-4"
-                    />
-                    <SheetTitle className="text-white text-left">Explore Our Services</SheetTitle>
-                    <SheetDescription className="text-white/80 text-left">
-                      Your journey starts here
-                    </SheetDescription>
-                  </motion.div>
+              {/* Minimal Header */}
+              <div className="px-6 py-4 border-b border-neutral-200">
+                <SheetHeader className="p-0 gap-0">
+                  <SheetTitle className="text-black text-left text-xl font-semibold">
+                    Menu
+                  </SheetTitle>
                 </SheetHeader>
               </div>
 
               {/* Navigation Links */}
-              <div className="flex flex-col h-[calc(100vh-180px)] overflow-y-auto">
-                <div className="flex-1 px-6 py-6 space-y-2">
-                  {menuItems.map((item, index) => (
-                    <motion.div 
-                      key={item.label}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + index * 0.05 }}
-                    >
-                      <Link
-                        href={item.href}
-                        className="flex items-center justify-between group px-4 py-3 rounded-xl hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 transition-all duration-300"
-                        onClick={() => !item.submenu && setIsOpen(false)}
-                      >
-                        <span className="text-neutral-900 group-hover:text-primary transition-colors">
-                          {item.label}
-                        </span>
-                        {item.submenu && (
-                          <motion.div
-                            animate={{ rotate: activeDropdown === item.label ? 180 : 0 }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            <ChevronDown className="w-5 h-5 text-neutral-400 group-hover:text-primary" />
-                          </motion.div>
-                        )}
-                      </Link>
-                      <AnimatePresence>
-                        {item.submenu && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="ml-6 mt-1 space-y-1 overflow-hidden"
-                          >
-                            {item.submenu.map((subitem, subIndex) => (
-                              <motion.div
-                                key={subitem.label}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: subIndex * 0.05 }}
+              <div className="flex flex-col h-[calc(100vh-120px)] overflow-y-auto scrollbar-hide">
+                <div className="flex-1 px-6 py-6">
+                  <nav className="space-y-1">
+                    {menuItems.map((item, index) => {
+                      const Icon = item.icon;
+                      const isActive = pathname === item.href;
+                      const isDropdownOpen = activeDropdown === item.label;
+                      
+                      return (
+                        <div key={item.label} className="mb-1">
+                          {!item.submenu ? (
+                            <Link
+                              href={item.href}
+                              className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-colors ${
+                                isActive 
+                                  ? 'bg-black text-white' 
+                                  : 'text-black hover:bg-neutral-100'
+                              }`}
+                              onClick={() => setIsOpen(false)}
+                            >
+                              <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-black'}`} />
+                              <span className={`font-medium text-base ${isActive ? 'text-white' : 'text-black'}`}>
+                                {item.label}
+                              </span>
+                            </Link>
+                          ) : (
+                            <>
+                              <div
+                                className={`flex items-center justify-between gap-4 px-4 py-3 rounded-lg cursor-pointer transition-colors ${
+                                  isActive 
+                                    ? 'bg-black text-white' 
+                                    : 'text-black hover:bg-neutral-100'
+                                }`}
+                                onClick={() => setActiveDropdown(isDropdownOpen ? null : item.label)}
                               >
-                                <Link
-                                  href={subitem.href}
-                                  className="flex items-center px-4 py-2 text-sm text-neutral-600 hover:text-primary hover:bg-primary/5 rounded-lg transition-all"
-                                  onClick={() => setIsOpen(false)}
+                                <div className="flex items-center gap-4 flex-1">
+                                  <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-black'}`} />
+                                  <span className={`font-medium text-base ${isActive ? 'text-white' : 'text-black'}`}>
+                                    {item.label}
+                                  </span>
+                                </div>
+                                <motion.div
+                                  animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+                                  transition={{ duration: 0.2 }}
                                 >
-                                  <span className="w-1.5 h-1.5 rounded-full bg-accent mr-3"></span>
-                                  {subitem.label}
-                                </Link>
-                              </motion.div>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.div>
-                  ))}
+                                  <ChevronDown className={`w-4 h-4 ${isActive ? 'text-white' : 'text-black'}`} />
+                                </motion.div>
+                              </div>
+                              
+                              {/* Submenu */}
+                              <AnimatePresence>
+                                {isDropdownOpen && (
+                                  <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="overflow-hidden pl-9 mt-1"
+                                  >
+                                    <div className="space-y-1 py-2">
+                                      {item.submenu.map((subitem) => (
+                                        <Link
+                                          key={subitem.label}
+                                          href={subitem.href}
+                                          className="block px-4 py-2 text-sm text-black hover:bg-neutral-100 rounded-lg transition-colors font-medium"
+                                          onClick={() => setIsOpen(false)}
+                                        >
+                                          {subitem.label}
+                                        </Link>
+                                      ))}
+                                    </div>
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </nav>
                 </div>
 
-                {/* Bottom Action Section */}
-                <div className="px-6 py-6 border-t border-neutral-200 bg-neutral-50/50">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                  >
+                {/* Bottom Actions */}
+                <div className="px-6 py-6 border-t border-neutral-200 bg-white space-y-4">
+                  <div className="flex gap-3">
                     <Button 
                       asChild 
-                      className="w-full bg-gradient-to-r from-primary to-accent hover:shadow-lg hover:shadow-primary/30 border-0 rounded-xl h-12 transition-all"
+                      variant="outline"
+                      className="flex-1 h-11 border-black text-black hover:bg-black hover:text-white rounded-lg font-medium"
                     >
-                      <Link href="/account" className="flex items-center justify-center gap-2">
-                        <span>Login / Sign Up</span>
+                      <Link href="/account" onClick={() => setIsOpen(false)}>
+                        Login
                       </Link>
                     </Button>
-                    
-                    <div className="flex items-center justify-center gap-4 mt-4 text-xs text-neutral-500">
-                      <Link href="/contact" className="hover:text-primary transition-colors">Support</Link>
-                      <span>•</span>
-                      <Link href="/about-us" className="hover:text-primary transition-colors">About</Link>
-                    </div>
-                  </motion.div>
+                    <Button 
+                      asChild 
+                      className="flex-1 h-11 bg-black text-white hover:bg-neutral-800 rounded-lg font-medium"
+                    >
+                      <Link href="/account" onClick={() => setIsOpen(false)}>
+                        Sign Up
+                      </Link>
+                    </Button>
+                  </div>
+                  
+                  <div className="flex items-center justify-center gap-4 pt-2">
+                    <Link 
+                      href="/contact" 
+                      className="text-sm text-black hover:underline transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Support
+                    </Link>
+                    <span className="text-neutral-400">•</span>
+                    <Link 
+                      href="/about-us" 
+                      className="text-sm text-black hover:underline transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      About
+                    </Link>
+                  </div>
                 </div>
               </div>
             </SheetContent>
