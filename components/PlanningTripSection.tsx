@@ -34,7 +34,7 @@ const destinations = [
 
 export function PlanningTripSection() {
   return (
-    <section className="pt-16 pb-32 bg-gradient-to-b from-primary/5 to-accent/5 overflow-visible" style={{ height: '780px' }}>
+    <section className="pt-12 pb-20 bg-gradient-to-b from-primary/5 to-accent/5 overflow-hidden" style={{ minHeight: '780px' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
@@ -94,6 +94,7 @@ export function PlanningTripSection() {
             viewport={{ once: true, amount: 0.5, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="grid grid-cols-2 gap-4 lg:gap-6"
+            style={{ paddingTop: '50px', paddingBottom: '20px' }}
           >
             {destinations.map((destination, index) => (
               <div

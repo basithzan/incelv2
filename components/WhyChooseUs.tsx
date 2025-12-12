@@ -53,19 +53,19 @@ const features = [
 
 export function WhyChooseUs() {
   return (
-    <section className="pt-12 pb-4 relative overflow-hidden bg-white">
+    <section className="pt-6 md:pt-12 pb-4 relative overflow-visible bg-white">
       {/* Subtle Background */}
       <div className="absolute inset-0 bg-[radial-gradient(#000000_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03]" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10" style={{ height: '662px' }}>
+      <div className="max-w-7xl mx-auto px-6 relative z-10 md:h-[662px] overflow-visible">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-8"
+          className="text-center mb-2"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight text-neutral-900">
+          <h2 className="text-4xl md:text-6xl font-bold mb-3 tracking-tight text-neutral-900">
             Why Travel With <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Incel?</span>
           </h2>
           <p className="text-lg text-neutral-600 max-w-2xl mx-auto mb-0">
@@ -74,11 +74,11 @@ export function WhyChooseUs() {
         </motion.div>
 
         <motion.div 
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 1 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.5, margin: "-100px" }}
+          viewport={{ once: true, amount: 0.1, margin: "0px" }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-4 grid-rows-none md:grid-rows-3 gap-6 h-auto md:h-[600px]"
+          className="grid grid-cols-1 md:grid-cols-4 grid-rows-none md:grid-rows-3 gap-3 md:gap-4 h-auto md:h-[600px] pt-4 md:pt-12 pb-4 md:pb-12"
         >
           {features.map((feature, index) => (
             <div

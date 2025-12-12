@@ -122,7 +122,7 @@ export function LatestPackagesCarousel({ packages }: LatestPackagesCarouselProps
             {/* Navigation Arrows - Moved to sides with Tailed Arrows & High Z-Index */}
             <button
                 onClick={prevSlide}
-                className="absolute left-4 lg:left-12 top-[60%] -translate-y-1/2 z-50 w-14 h-14 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200 text-neutral-900 flex items-center justify-center shadow-xl hover:scale-110 hover:bg-white transition-all cursor-pointer pointer-events-auto"
+                className="absolute left-4 lg:left-12 top-1/2 -translate-y-1/2 z-[60] w-14 h-14 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200 text-neutral-900 flex items-center justify-center shadow-xl hover:scale-110 hover:bg-white transition-all cursor-pointer pointer-events-auto"
                 aria-label="Previous slide"
             >
                 <ArrowLeft className="w-6 h-6" />
@@ -130,7 +130,7 @@ export function LatestPackagesCarousel({ packages }: LatestPackagesCarouselProps
 
             <button
                 onClick={nextSlide}
-                className="absolute right-4 lg:right-12 top-[60%] -translate-y-1/2 z-50 w-14 h-14 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200 text-neutral-900 flex items-center justify-center shadow-xl hover:scale-110 hover:bg-white transition-all cursor-pointer pointer-events-auto"
+                className="absolute right-4 lg:right-12 top-1/2 -translate-y-1/2 z-[60] w-14 h-14 rounded-full bg-white/90 backdrop-blur-md border border-neutral-200 text-neutral-900 flex items-center justify-center shadow-xl hover:scale-110 hover:bg-white transition-all cursor-pointer pointer-events-auto"
                 aria-label="Next slide"
             >
                 <ArrowRight className="w-6 h-6" />

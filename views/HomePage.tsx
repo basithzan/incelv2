@@ -132,13 +132,15 @@ export function HomePage() {
       <PlanningTripSection />
 
       {/* Why Choose Us - Bento Grid */}
-      <WhyChooseUs />
+      <div className="mt-12 md:mt-16">
+        <WhyChooseUs />
+      </div>
 
       {/* Local Tours Section */}
       <ParallaxSection className="py-32 relative bg-neutral-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-[url('/pattern.svg')] opacity-5" />
 
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-8 relative z-10" style={{ height: '852px' }}>
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-8 relative z-10" style={{ minHeight: '852px' }}>
           <div className="text-center mb-10">
             <span className="text-accent font-medium tracking-wider uppercase text-sm mb-4 block">Discover Local Gems</span>
             <h2 className="text-4xl md:text-6xl font-bold mb-6">Experience Dubai & UAE</h2>
@@ -147,7 +149,7 @@ export function HomePage() {
             </p>
           </div>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16" style={{ paddingTop: '50px', paddingBottom: '50px' }}>
             {tours.map((tour) => (
               <StaggerItem key={tour.id}>
                 <TourCard {...tour} />
@@ -155,9 +157,9 @@ export function HomePage() {
             ))}
           </StaggerContainer>
 
-          <div className="text-center">
+          <div className="text-center mb-8">
             <Button asChild size="lg" className="rounded-full bg-white text-black hover:bg-neutral-200 border-none h-12 px-8">
-              <a href="#/local-tours" className="flex items-center gap-2">
+              <a href="#/local-tours" className="flex items-center gap-2 text-black">
                 View All Tours <ArrowRight className="w-4 h-4" />
               </a>
             </Button>
