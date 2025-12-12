@@ -34,66 +34,41 @@ const destinations = [
 
 export function PlanningTripSection() {
   return (
-    <section className="pt-16 pb-32 bg-gradient-to-b from-neutral-50 to-white overflow-visible">
+    <section className="pt-16 pb-32 bg-gradient-to-b from-primary/5 to-accent/5 overflow-visible" style={{ height: '780px' }}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.5, margin: "-100px" }}
             transition={{ duration: 0.6 }}
             className="relative"
           >
             {/* Background Decorative Elements */}
             <div className="absolute -left-20 -top-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
             <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-accent/5 rounded-full blur-3xl"></div>
-            
+
             <div className="relative">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="mb-1 text-4xl lg:text-6xl relative z-10"
-                style={{ lineHeight: '1.3', overflow: 'visible' }}
+              <h2
+                className="mb-1 text-4xl lg:text-5xl font-bold relative z-10"
               >
-                <span 
-                  className="inline-block text-3xl lg:text-5xl font-normal relative z-10"
-                  style={{
-                    background: 'linear-gradient(to right, #0076ad, #00A884, #0076ad)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    color: 'transparent',
-                    lineHeight: '1.4',
-                    paddingBottom: '0.2em',
-                    display: 'inline-block',
-                  }}
-                >
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                   Planning a Trip?
                 </span>
-              </motion.h2>
+              </h2>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
+              <p
                 className="text-neutral-600 text-xl leading-normal mb-10 max-w-lg"
               >
                 Luckily no destination is too far away. You can travel from country-to-country within hours to experience a wide variety of cultures and landscapes.
-              </motion.p>
+              </p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+              <div
                 className="flex flex-wrap gap-4"
               >
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="text-white font-semibold px-8 py-3 rounded-full inline-flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 border-0"
                   style={{
                     background: 'linear-gradient(to right, #0076ad, #00A884)'
@@ -101,14 +76,14 @@ export function PlanningTripSection() {
                 >
                   See Trip Ideas
                 </Button>
-                <Button 
-                  variant="ghost" 
-                  size="lg" 
+                <Button
+                  variant="ghost"
+                  size="lg"
                   className="text-primary hover:text-primary hover:bg-primary/5 px-8 py-6 rounded-lg transition-all"
                 >
                   Popular Destinations
                 </Button>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
 
@@ -116,21 +91,15 @@ export function PlanningTripSection() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.5, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="grid grid-cols-2 gap-4 lg:gap-6"
           >
             {destinations.map((destination, index) => (
-              <motion.div
+              <div
                 key={destination.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className={`group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 min-h-[280px] ${
-                  index === 0 || index === 3 ? 'mt-0' : 'mt-8'
-                }`}
+                className={`group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 min-h-[280px] hover:-translate-y-2 ${index === 0 || index === 3 ? 'mt-0' : 'mt-8'
+                  }`}
               >
                 {/* Image - Full Coverage */}
                 <div className="absolute inset-0 overflow-hidden">
@@ -157,7 +126,7 @@ export function PlanningTripSection() {
 
                 {/* Hover border effect */}
                 <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-2xl transition-all duration-300 z-20"></div>
-              </motion.div>
+              </div>
             ))}
           </motion.div>
         </div>

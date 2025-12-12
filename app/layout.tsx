@@ -12,6 +12,9 @@ export const viewport: Viewport = {
   maximumScale: 5,
 }
 
+import { SmoothScroll } from '../components/SmoothScroll';
+import { MouseFollower } from '../components/MouseFollower';
+
 export default function RootLayout({
   children,
 }: {
@@ -19,7 +22,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="antialiased selection:bg-primary/20 selection:text-primary">
+        <SmoothScroll>
+          {/* <MouseFollower />  - Commenting out for now as it can be buggy with iframes/video. Enabling later if requested specially */}
+          {children}
+        </SmoothScroll>
+      </body>
     </html>
   )
 }

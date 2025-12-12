@@ -1,10 +1,8 @@
-import { Card } from './ui/card';
 import { Badge } from './ui/badge';
-import { Button } from './ui/button';
-import { Calendar, MapPin, Star, ArrowRight, Heart, Clock, Users } from 'lucide-react';
+import { Calendar, MapPin, Star, Clock, Users, ArrowUpRight } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 interface PackageCardProps {
   id: string;
@@ -27,125 +25,143 @@ export function PackageCard({
   price,
   currency = 'AED',
   category,
-  highlights = []
 }: PackageCardProps) {
-  const [isLiked, setIsLiked] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (!ref.current) return;
+
+    const rect = ref.current.getBoundingClientRect();
+
+    const width = rect.width;
+    const height = rect.height;
+
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      style={{
+        perspective: 1000,
+      }}
       className="h-full"
     >
-      <Card className="overflow-hidden group border border-neutral-200 shadow-md hover:shadow-xl transition-all duration-300 bg-white rounded-xl relative h-full flex flex-col">
-        {/* Image Section */}
-        <div className="relative h-64 overflow-hidden">
-          <div className="absolute inset-0">
-            <ImageWithFallback
-              src={image}
-              alt={title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-          
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-          
-          {/* Category Badge - Top Left (White pill) */}
-          <div className="absolute top-3 left-3 z-10">
-            <Badge className="bg-white text-neutral-900 font-medium px-3 py-1 rounded-full border-0 shadow-sm">
-              {category}
-            </Badge>
-          </div>
-          
-          {/* Rating Badge - Top Right (White pill) */}
-          <div className="absolute top-3 right-3 z-10">
-            <Badge className="bg-white text-neutral-900 font-medium px-3 py-1 rounded-full border-0 shadow-sm flex items-center gap-1.5">
-              <Star className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
-              <span className="text-sm font-semibold">4.9</span>
-            </Badge>
-          </div>
-          
-          {/* Price - Bottom Left (White box) */}
-          <div className="absolute bottom-3 left-3 z-10">
-            <div className="bg-white rounded-lg px-3 py-2 shadow-lg">
-              <p className="text-[10px] text-neutral-600 uppercase tracking-wide mb-0.5 font-medium">From</p>
-              <p className="flex items-baseline gap-1">
-                <span className="text-xs text-neutral-600 font-medium">{currency}</span>
-                <span className="text-xl font-bold text-neutral-900">{price.toLocaleString()}</span>
-              </p>
-            </div>
-          </div>
-          
-          {/* Location - Bottom Right (Black pill) */}
-          <div className="absolute bottom-3 right-3 z-10">
-            <Badge className="bg-neutral-900 text-white font-medium px-3 py-1.5 rounded-full border-0 shadow-lg flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-white" />
-              <span className="text-xs font-medium">{location}</span>
-            </Badge>
+      <motion.div
+        ref={ref}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+        }}
+        className="group relative h-[450px] w-full cursor-pointer rounded-[2rem] bg-neutral-900 transition-all duration-200 ease-linear shadow-xl"
+        onClick={() => window.location.href = `#/packages/${id}`}
+      >
+        {/* Reflection/Sheen Effect */}
+        <div
+          style={{
+            transform: "translateZ(75px)",
+            transformStyle: "preserve-3d",
+          }}
+          className="absolute inset-4 z-10 grid place-content-center rounded-xl bg-white/10 opacity-0 transition-opacity duration-500 group-hover:opacity-10 pointer-events-none"
+        />
+
+        {/* Background Image */}
+        <div className="absolute inset-0 h-full w-full overflow-hidden rounded-[2rem]">
+          <ImageWithFallback
+            src={image}
+            alt={title}
+            className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+        </div>
+
+        {/* Floating Badges - 3D Lift */}
+        <div
+          style={{ transform: "translateZ(50px)" }}
+          className="absolute top-4 left-4 right-4 flex justify-between z-20 pointer-events-none"
+        >
+          <Badge className="bg-white/90 backdrop-blur-md text-neutral-900 font-semibold px-3 py-1.5 rounded-full border-0 shadow-lg">
+            {category}
+          </Badge>
+          <div className="flex items-center gap-1 bg-white/90 backdrop-blur-md rounded-full px-2.5 py-1.5 shadow-lg">
+            <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+            <span className="text-xs font-bold text-neutral-900">4.9</span>
           </div>
         </div>
-        
-        {/* Content Section */}
-        <div className="p-5 flex-1 flex flex-col">
-          {/* Title */}
-          <h3 className="text-lg font-bold text-neutral-900 mb-4 line-clamp-2 leading-tight">
-            {title}
-          </h3>
-          
-          {/* Duration & Group Info */}
-          <div className="flex items-center gap-4 mb-4">
-            <div className="flex items-center gap-2 text-neutral-700">
-              <Calendar className="w-4 h-4 text-neutral-600" />
-              <span className="text-sm">{duration}</span>
-            </div>
-            <div className="flex items-center gap-2 text-neutral-700">
-              <Users className="w-4 h-4 text-neutral-600" />
-              <span className="text-sm">Group</span>
-            </div>
-          </div>
-          
-          {/* Highlights */}
-          {highlights.length > 0 && (
-            <div className="mb-5 flex-1">
-              <ul className="space-y-2.5">
-                {highlights.slice(0, 2).map((highlight, index) => (
-                  <li key={index} className="flex items-start gap-2.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-neutral-400 mt-2 flex-shrink-0" />
-                    <span className="text-sm text-neutral-700 leading-relaxed">{highlight}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          
-          {/* CTA Button */}
-          <div className="mt-auto pt-4 border-t border-neutral-200">
-            <Button 
-              asChild 
-              className="w-full bg-yellow-400 hover:bg-yellow-500 text-neutral-900 rounded-lg h-11 font-semibold shadow-lg hover:shadow-xl transition-all border-0"
-            >
-              <a href={`#/packages/${id}`} className="flex items-center justify-center gap-2">
-                <span>Explore Package</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
-            </Button>
-            
-            {/* Footer Info */}
-            <div className="flex items-center justify-between mt-3 text-xs text-neutral-600">
-              <div className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" />
-                <span>Book now, pay later</span>
+
+        {/* Content Overlay - 3D Lift */}
+        <div
+          style={{ transform: "translateZ(30px)" }}
+          className="absolute bottom-0 left-0 right-0 p-6 z-20"
+        >
+          <div className="space-y-4">
+            {/* Title & Location */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Badge variant="outline" className="border-white/30 text-white bg-white/10 backdrop-blur-sm px-2 py-0.5 text-xs font-normal">
+                  <MapPin className="w-3 h-3 mr-1" /> {location}
+                </Badge>
               </div>
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full bg-green-500" />
-                <span>Available</span>
+              <h3 className="text-2xl font-bold text-white leading-tight mb-2 group-hover:text-primary-foreground transition-colors drop-shadow-lg">
+                {title}
+              </h3>
+            </div>
+
+            {/* Price & Details */}
+            <div className="grid grid-cols-2 gap-4 pb-2">
+              <div className="flex items-center gap-2 text-white/80">
+                <Clock className="w-4 h-4" />
+                <span className="text-sm shadow-black drop-shadow-md">{duration}</span>
+              </div>
+              <div className="flex items-center gap-2 text-white/80">
+                <Users className="w-4 h-4" />
+                <span className="text-sm shadow-black drop-shadow-md">Group Tour</span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-4 border-t border-white/20">
+              <div>
+                <p className="text-xs text-white/60 uppercase tracking-wider">Starting from</p>
+                <p className="flex items-baseline gap-1">
+                  <span className="text-sm text-primary font-bold">{currency}</span>
+                  <span className="text-2xl font-bold text-white">{price.toLocaleString()}</span>
+                </p>
+              </div>
+
+              <div className="w-12 h-12 rounded-full bg-white text-neutral-900 flex items-center justify-center shadow-lg group-hover:bg-primary group-hover:text-white transition-colors">
+                <ArrowUpRight className="w-6 h-6" />
               </div>
             </div>
           </div>
         </div>
-      </Card>
+      </motion.div>
     </motion.div>
   );
 }

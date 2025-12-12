@@ -9,6 +9,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Card } from '../components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
 import { Globe, CheckCircle2, CreditCard, Building2, Smartphone, Lock } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const popularDestinations = [
   'United Kingdom',
@@ -22,6 +23,8 @@ const popularDestinations = [
   'Turkey',
   'Egypt'
 ];
+
+import { PageHero } from '../components/PageHero';
 
 export function GlobalVisaPage() {
   const [formData, setFormData] = useState({
@@ -51,27 +54,20 @@ export function GlobalVisaPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative h-96 flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(https://images.unsplash.com/photo-1758223725156-ee49cc327a46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB0cmF2ZWwlMjBmYW1pbHl8ZW58MXx8fHwxNzYyMzcxNjc2fDA&ixlib=rb-4.1.0&q=80&w=1080)`
-          }}
-        >
-          <div className="absolute inset-0 bg-neutral-900/50" />
-        </div>
-        <div className="relative z-10 text-center text-white max-w-3xl mx-auto px-4">
-          <h1 className="mb-4">Global Visa Assistance</h1>
-          <p>Expert guidance for visa applications to popular destinations worldwide</p>
-        </div>
-      </section>
+      <PageHero
+        image="https://images.unsplash.com/photo-1758223725156-ee49cc327a46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB0cmF2ZWwlMjBmYW1pbHl8ZW58MXx8fHwxNzYyMzcxNjc2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+        title={<>Go <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Global</span></>}
+        subtitle="Expert guidance for visa applications to popular destinations worldwide."
+      />
 
       {/* Popular Destinations */}
       <section className="py-20">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-20">
-          <div className="text-center mb-12">
-            <h2 className="mb-4">We Assist with Visas to</h2>
-            <p className="text-neutral-700 max-w-2xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-neutral-900">
+              We Assist with <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Visas to</span>
+            </h2>
+            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
               Our experienced team provides guidance for visa applications to major destinations around the world
             </p>
           </div>
@@ -111,133 +107,151 @@ export function GlobalVisaPage() {
       </section>
 
       {/* Inquiry Form */}
-      <section className="py-20 bg-neutral-100">
-        <div className="max-w-[800px] mx-auto px-4 sm:px-6 lg:px-20">
-          <div className="text-center mb-12">
-            <h2 className="mb-4">Visa Inquiry Form</h2>
-            <p className="text-neutral-700">
-              Tell us about your travel plans and our visa experts will provide personalized guidance
-            </p>
-          </div>
+      <section className="py-32 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] opacity-30" />
 
-          <Card className="p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                  />
-                </div>
-              </div>
+        {/* Standard Outer Container for Margins */}
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-20 relative z-10">
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="nationality">Your Nationality</Label>
-                  <Select
-                    value={formData.nationality}
-                    onValueChange={(value) => setFormData({ ...formData, nationality: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select nationality" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="nigeria">Nigeria</SelectItem>
-                      <SelectItem value="ghana">Ghana</SelectItem>
-                      <SelectItem value="kenya">Kenya</SelectItem>
-                      <SelectItem value="southafrica">South Africa</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="destination">Destination Country</Label>
-                  <Select
-                    value={formData.destination}
-                    onValueChange={(value) => setFormData({ ...formData, destination: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select destination" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {popularDestinations.map((dest) => (
-                        <SelectItem key={dest} value={dest.toLowerCase().replace(/\s+/g, '-')}>
-                          {dest}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="travelPurpose">Purpose of Travel</Label>
-                  <Select
-                    value={formData.travelPurpose}
-                    onValueChange={(value) => setFormData({ ...formData, travelPurpose: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select purpose" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="tourism">Tourism</SelectItem>
-                      <SelectItem value="business">Business</SelectItem>
-                      <SelectItem value="study">Study</SelectItem>
-                      <SelectItem value="work">Work</SelectItem>
-                      <SelectItem value="family">Family Visit</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="message">Additional Information</Label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  rows={5}
-                  placeholder="Tell us about your travel plans, timeline, or any specific questions..."
-                />
-              </div>
-
-              <Button 
-                type="submit" 
-                size="lg" 
-                className="w-full bg-yellow-400 hover:bg-yellow-500 text-neutral-900 px-6 rounded-full shadow-lg hover:shadow-xl transition-all border-0"
-              >
-                Submit Inquiry
-              </Button>
-
-              <p className="text-center text-neutral-500">
-                Our visa experts will review your inquiry and contact you within 24 hours
+          {/* Inner Container for Narrow Form */}
+          <div className="max-w-xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-neutral-900 pt-8">
+                Visa <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Inquiry Form</span>
+              </h2>
+              <p className="text-lg text-neutral-600">
+                Tell us about your travel plans and our visa experts will provide personalized guidance
               </p>
-            </form>
-          </Card>
+            </div>
+
+            <Card className="p-8 md:p-12 border-0 shadow-2xl rounded-[2.5rem] bg-white ring-1 ring-neutral-100 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-accent" />
+
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <Label htmlFor="name" className="text-base font-semibold text-neutral-700">Full Name</Label>
+                    <Input
+                      id="name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      required
+                      className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                      placeholder="Enter full name"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label htmlFor="email" className="text-base font-semibold text-neutral-700">Email Address</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      required
+                      className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                      placeholder="name@example.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <Label htmlFor="phone" className="text-base font-semibold text-neutral-700">Phone Number</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      required
+                      className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                      placeholder="+1 234 567 890"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label htmlFor="nationality" className="text-base font-semibold text-neutral-700">Your Nationality</Label>
+                    <Select
+                      value={formData.nationality}
+                      onValueChange={(value) => setFormData({ ...formData, nationality: value })}
+                    >
+                      <SelectTrigger className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all">
+                        <SelectValue placeholder="Select nationality" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-xl border-neutral-100 shadow-xl">
+                        <SelectItem value="nigeria">Nigeria</SelectItem>
+                        <SelectItem value="ghana">Ghana</SelectItem>
+                        <SelectItem value="kenya">Kenya</SelectItem>
+                        <SelectItem value="southafrica">South Africa</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <Label htmlFor="destination" className="text-base font-semibold text-neutral-700">Destination Country</Label>
+                    <Select
+                      value={formData.destination}
+                      onValueChange={(value) => setFormData({ ...formData, destination: value })}
+                    >
+                      <SelectTrigger className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all">
+                        <SelectValue placeholder="Select destination" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-xl border-neutral-100 shadow-xl">
+                        {popularDestinations.map((dest) => (
+                          <SelectItem key={dest} value={dest.toLowerCase().replace(/\s+/g, '-')}>
+                            {dest}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-3">
+                    <Label htmlFor="travelPurpose" className="text-base font-semibold text-neutral-700">Purpose of Travel</Label>
+                    <Select
+                      value={formData.travelPurpose}
+                      onValueChange={(value) => setFormData({ ...formData, travelPurpose: value })}
+                    >
+                      <SelectTrigger className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all">
+                        <SelectValue placeholder="Select purpose" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-xl border-neutral-100 shadow-xl">
+                        <SelectItem value="tourism">Tourism</SelectItem>
+                        <SelectItem value="business">Business</SelectItem>
+                        <SelectItem value="study">Study</SelectItem>
+                        <SelectItem value="work">Work</SelectItem>
+                        <SelectItem value="family">Family Visit</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <Label htmlFor="message" className="text-base font-semibold text-neutral-700">Additional Information</Label>
+                  <Textarea
+                    id="message"
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    rows={5}
+                    className="bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all resize-none p-4"
+                    placeholder="Tell us about your travel plans, timeline, or any specific questions..."
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full h-16 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-primary/20 transition-all transform hover:-translate-y-1 font-bold text-xl tracking-wide mt-6"
+                >
+                  Submit Inquiry
+                </Button>
+
+                <p className="text-center text-sm text-neutral-400">
+                  Our visa experts will review your inquiry and contact you within 24 hours
+                </p>
+              </form>
+            </Card>
+          </div>
         </div>
       </section>
 

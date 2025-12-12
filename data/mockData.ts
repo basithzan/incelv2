@@ -181,7 +181,6 @@ export const visas = [
     requirements: [
       'Passport copy (valid 6 months)',
       'Passport size photo',
-      'Bank statement (last 3 months)',
       'Travel insurance'
     ]
   },
@@ -194,7 +193,6 @@ export const visas = [
     requirements: [
       'Passport copy (valid 6 months)',
       'Passport size photo',
-      'Bank statement (last 6 months)',
       'Employment letter',
       'Travel insurance'
     ]

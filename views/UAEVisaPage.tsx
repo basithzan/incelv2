@@ -11,6 +11,9 @@ import { Card } from '../components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
 import { visas } from '../data/mockData';
 import { FileUp, CheckCircle2, CreditCard, Building2, Smartphone, Lock } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+import { PageHero } from '../components/PageHero';
 
 export function UAEVisaPage() {
   const [formData, setFormData] = useState({
@@ -41,27 +44,20 @@ export function UAEVisaPage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative h-96 flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(https://images.unsplash.com/photo-1643904736472-8b77e93ca3d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxEdWJhaSUyMHNreWxpbmUlMjBCdXJqJTIwS2hhbGlmYXxlbnwxfHx8fDE3NjIyODc0OTN8MA&ixlib=rb-4.1.0&q=80&w=1080)`
-          }}
-        >
-          <div className="absolute inset-0 bg-neutral-900/50" />
-        </div>
-        <div className="relative z-10 text-center text-white max-w-3xl mx-auto px-4">
-          <h1 className="mb-4">Apply for UAE Visa</h1>
-          <p>Fast processing & expert assistance for all UAE visa types</p>
-        </div>
-      </section>
+      <PageHero
+        image="https://images.unsplash.com/photo-1643904736472-8b77e93ca3d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxEdWJhaSUyMHNreWxpbmUlMjBCdXJqJTIwS2hhbGlmYXxlbnwxfHx8fDE3NjIyODc0OTN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+        title={<>Apply for <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">UAE Visa</span></>}
+        subtitle="Fast processing & expert assistance for all UAE visa types."
+      />
 
       {/* Visa Types */}
       <section className="py-20">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-20">
-          <div className="text-center mb-12">
-            <h2 className="mb-4">Choose Your Visa Type</h2>
-            <p className="text-neutral-700 max-w-2xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-neutral-900">
+              Choose Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Visa Type</span>
+            </h2>
+            <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
               We offer various UAE visa options to suit your travel needs
             </p>
           </div>
@@ -91,138 +87,159 @@ export function UAEVisaPage() {
       </section>
 
       {/* Application Form */}
-      <section id="visa-application-form" className="py-20 bg-neutral-100 scroll-mt-20">
-        <div className="max-w-[800px] mx-auto px-4 sm:px-6 lg:px-20">
-          <div className="text-center mb-12">
-            <h2 className="mb-4">Visa Application Form</h2>
-            <p className="text-neutral-700">
-              Fill in your details and our visa experts will contact you within 24 hours
-            </p>
-          </div>
+      <section id="visa-application-form" className="py-32 bg-white relative overflow-hidden scroll-mt-20">
+        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] opacity-30" />
 
-          <Card className="p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name (as per passport)</Label>
-                  <Input
-                    id="fullName"
-                    value={formData.fullName}
-                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="nationality">Nationality</Label>
-                  <Select
-                    value={formData.nationality}
-                    onValueChange={(value) => setFormData({ ...formData, nationality: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select nationality" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="nigeria">Nigeria</SelectItem>
-                      <SelectItem value="ghana">Ghana</SelectItem>
-                      <SelectItem value="kenya">Kenya</SelectItem>
-                      <SelectItem value="southafrica">South Africa</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
+        {/* Standard Outer Container for Margins */}
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-20 relative z-10">
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="passportNo">Passport Number</Label>
-                  <Input
-                    id="passportNo"
-                    value={formData.passportNo}
-                    onChange={(e) => setFormData({ ...formData, passportNo: e.target.value })}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="dob">Date of Birth</Label>
-                  <Input
-                    id="dob"
-                    type="date"
-                    value={formData.dob}
-                    onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="travelDate">Intended Travel Date</Label>
-                <Input
-                  id="travelDate"
-                  type="date"
-                  value={formData.travelDate}
-                  onChange={(e) => setFormData({ ...formData, travelDate: e.target.value })}
-                  required
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="notes">Additional Notes (Optional)</Label>
-                <Textarea
-                  id="notes"
-                  value={formData.notes}
-                  onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  rows={4}
-                  placeholder="Any special requirements or questions?"
-                />
-              </div>
-
-              <div className="border-2 border-dashed border-neutral-300 rounded-lg p-8 text-center">
-                <FileUp className="w-12 h-12 text-neutral-500 mx-auto mb-4" />
-                <h4 className="mb-2">Document Upload</h4>
-                <p className="text-neutral-700 mb-4">
-                  After submission, our team will send you a secure link to upload required documents
-                </p>
-                <p className="text-neutral-500">
-                  Required: Passport copy, photo, supporting documents
-                </p>
-              </div>
-
-              <Button 
-                type="submit" 
-                size="lg" 
-                className="w-full bg-yellow-400 hover:bg-yellow-500 text-neutral-900 px-6 rounded-full shadow-lg hover:shadow-xl transition-all border-0"
-              >
-                Submit Application
-              </Button>
-
-              <p className="text-center text-neutral-500">
-                By submitting, you agree to our Terms & Conditions and Privacy Policy
+          {/* Inner Container for Narrow Form */}
+          <div className="max-w-xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-neutral-900 pt-8">
+                Start Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Visa Application</span>
+              </h2>
+              <p className="text-lg text-neutral-600 mb-2">
+                Fill in your details below and our visa experts will review your application within 24 hours.
               </p>
-            </form>
-          </Card>
+            </div>
+
+            <Card className="p-8 md:p-12 pb-12 border-0 shadow-2xl rounded-[2.5rem] bg-white ring-1 ring-neutral-100 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-accent" />
+
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <Label htmlFor="fullName" className="text-base font-semibold text-neutral-700">Full Name (as per passport)</Label>
+                    <Input
+                      id="fullName"
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      required
+                      className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                      placeholder="Enter your full name"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label htmlFor="nationality" className="text-base font-semibold text-neutral-700">Nationality</Label>
+                    <Select
+                      value={formData.nationality}
+                      onValueChange={(value) => setFormData({ ...formData, nationality: value })}
+                    >
+                      <SelectTrigger className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all">
+                        <SelectValue placeholder="Select nationality" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-xl border-neutral-100 shadow-xl">
+                        <SelectItem value="nigeria">Nigeria</SelectItem>
+                        <SelectItem value="ghana">Ghana</SelectItem>
+                        <SelectItem value="kenya">Kenya</SelectItem>
+                        <SelectItem value="southafrica">South Africa</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <Label htmlFor="passportNo" className="text-base font-semibold text-neutral-700">Passport Number</Label>
+                    <Input
+                      id="passportNo"
+                      value={formData.passportNo}
+                      onChange={(e) => setFormData({ ...formData, passportNo: e.target.value })}
+                      required
+                      className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                      placeholder="Enter passport number"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label htmlFor="dob" className="text-base font-semibold text-neutral-700">Date of Birth</Label>
+                    <Input
+                      id="dob"
+                      type="date"
+                      value={formData.dob}
+                      onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
+                      required
+                      className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <Label htmlFor="travelDate" className="text-base font-semibold text-neutral-700">Intended Travel Date</Label>
+                  <Input
+                    id="travelDate"
+                    type="date"
+                    value={formData.travelDate}
+                    onChange={(e) => setFormData({ ...formData, travelDate: e.target.value })}
+                    required
+                    className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <Label htmlFor="email" className="text-base font-semibold text-neutral-700">Email Address</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      required
+                      className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                      placeholder="name@example.com"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label htmlFor="phone" className="text-base font-semibold text-neutral-700">Phone Number</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      required
+                      className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                      placeholder="+1 234 567 890"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-3 mt-6">
+                  <Label htmlFor="notes" className="text-base font-semibold text-neutral-700">Additional Notes (Optional)</Label>
+                  <Textarea
+                    id="notes"
+                    value={formData.notes}
+                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                    rows={4}
+                    className="bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all resize-none px-4 pt-4 pb-8"
+                    placeholder="Any special requirements or questions?"
+                  />
+                </div>
+
+                <div className="bg-blue-50/50 border border-blue-100 rounded-3xl px-8 py-4 text-center transition-all hover:border-blue-200 mt-6">
+                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
+                    <FileUp className="w-8 h-8" />
+                  </div>
+                  <h4 className="font-bold text-neutral-900 mb-2">Document Upload</h4>
+                  <p className="text-neutral-600 text-sm max-w-sm mx-auto">
+                    After form submission, you will receive a secure link to upload your passport and supporting documents.
+                  </p>
+                </div>
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full h-16 bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-primary/20 transition-all transform hover:-translate-y-1 font-bold text-xl tracking-wide mt-6"
+                >
+                  Submit Visa Application
+                </Button>
+
+                <p className="text-center text-sm text-neutral-400">
+                  By submitting this form, you agree to our Terms of Service and Privacy Policy.
+                </p>
+              </form>
+            </Card>
+          </div>
         </div>
       </section>
 

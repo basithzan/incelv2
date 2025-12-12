@@ -2,12 +2,12 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Plane, 
-  MapPin, 
-  FileCheck, 
-  Globe, 
-  Palmtree, 
+import {
+  Plane,
+  MapPin,
+  FileCheck,
+  Globe,
+  Palmtree,
   Compass,
   Users,
   Headphones
@@ -67,12 +67,12 @@ const containerVariants = {
 };
 
 const cardVariants = {
-  hidden: { 
-    opacity: 0, 
-    y: 30 
+  hidden: {
+    opacity: 0,
+    y: 30
   },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.5
@@ -92,27 +92,14 @@ export function WhatWeOffer() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.h2 
-            className="mb-1 text-4xl lg:text-6xl relative z-10"
+          <motion.h2
+            className="mb-1 text-4xl lg:text-5xl font-bold relative z-10"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            style={{ lineHeight: '1.3', overflow: 'visible' }}
           >
-            <span 
-              className="inline-block text-3xl lg:text-5xl font-normal relative z-10"
-              style={{
-                background: 'linear-gradient(to right, #0076ad, #00A884, #0076ad)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                color: 'transparent',
-                lineHeight: '1.4',
-                paddingBottom: '0.2em',
-                display: 'inline-block',
-              }}
-            >
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
               What we offer
             </span>
           </motion.h2>
@@ -135,7 +122,7 @@ export function WhatWeOffer() {
               <motion.div
                 key={service.title}
                 variants={cardVariants}
-                whileHover={{ 
+                whileHover={{
                   y: -8,
                   transition: { duration: 0.3 }
                 }}
@@ -147,12 +134,12 @@ export function WhatWeOffer() {
               >
                 {/* Gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0" />
-                
+
                 <div className="relative z-10">
                   {/* Icon */}
                   <div className="w-16 h-16 rounded-xl bg-[#0076ad] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative z-10">
-                    {React.createElement(IconComponent, { 
-                      className: "w-8 h-8 text-white", 
+                    {React.createElement(IconComponent, {
+                      className: "w-8 h-8 text-white",
                       strokeWidth: 2.5,
                       fill: "none"
                     })}

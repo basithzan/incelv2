@@ -2,15 +2,15 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { Sparkles, Plane, Hotel, FileText, Car, Ship, Map, X } from 'lucide-react';
+import { Sparkles, Plane, Hotel, FileText, Car, Ship, Map, ArrowRight, Search, Play } from 'lucide-react';
 import { Button } from './ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion'; // Removed useScroll, useTransform
 import { toast } from 'sonner';
-import GradientText from './GradientText';
+import { ImageWithFallback } from './figma/ImageWithFallback';
 
 interface HeroWithSearchProps {
   heading: string;
@@ -19,12 +19,13 @@ interface HeroWithSearchProps {
 }
 
 export function HeroWithSearch({ heading, subheading, backgroundImage }: HeroWithSearchProps) {
-  const [isSearching, setIsSearching] = useState(false);
   const [isBookNowOpen, setIsBookNowOpen] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // NOTE: Removed scroll parallax (useScroll/useTransform) for max performance
+
   useEffect(() => {
-    // Ensure video plays
     if (videoRef.current) {
       videoRef.current.play().catch((error) => {
         console.log('Video autoplay failed:', error);
@@ -32,345 +33,160 @@ export function HeroWithSearch({ heading, subheading, backgroundImage }: HeroWit
     }
   }, []);
 
-  const handleFlightInquiry = () => {
-    setIsSearching(true);
-    setTimeout(() => {
-      setIsSearching(false);
-      toast.success('Flight inquiry submitted! We\'ll get back to you shortly.');
-    }, 1500);
-  };
-
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
-      <motion.div 
-        initial={{ scale: 1.2, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute inset-0"
+    <div className="relative h-screen w-full overflow-hidden bg-black">
+      {/* Intro Curtain Animation - Kept as it is one-time */}
+      <motion.div
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: 0 }}
+        transition={{ duration: 1.5, ease: [0.76, 0, 0.24, 1], delay: 0.5 }}
+        className="absolute inset-0 bg-neutral-900 z-50 origin-top pointer-events-none"
       >
-        <video 
-          ref={videoRef}
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/dubai.mp4" type="video/mp4" />
-        </video>
-        {/* Multi-layer gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/70 via-neutral-900/50 to-neutral-900/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-accent/20" />
-        
-        {/* Animated mesh gradient */}
-        <motion.div 
-          className="absolute inset-0"
-          animate={{
-            background: [
-              "radial-gradient(circle at 20% 50%, rgba(10,93,177,0.15) 0%, transparent 50%)",
-              "radial-gradient(circle at 80% 50%, rgba(0,168,132,0.15) 0%, transparent 50%)",
-              "radial-gradient(circle at 50% 80%, rgba(10,93,177,0.15) 0%, transparent 50%)",
-              "radial-gradient(circle at 20% 50%, rgba(10,93,177,0.15) 0%, transparent 50%)",
-            ],
-          }}
-          transition={{ duration: 15, repeat: Infinity }}
-        />
-        
-        {/* Floating particles */}
-        <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-white rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, -50, 0],
-                opacity: [0, 1, 0],
-                scale: [0, 1.5, 0],
-              }}
-              transition={{
-                duration: 3 + Math.random() * 4,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-              }}
+        <div className="flex items-center justify-center h-full">
+          <motion.div
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center justify-center"
+          >
+            <ImageWithFallback 
+              src="https://inceltourism.com/wp-content/uploads/elementor/thumbs/logowhite-qhzbd7e4e3m50i16db2lblzaxkieai6seqqrl7p81s.png"
+              alt="Incel Tourism"
+              className="h-24 w-auto"
             />
-          ))}
+          </motion.div>
         </div>
       </motion.div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 w-full pt-32 pb-16">
-        {/* Header Content */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-center mb-6 md:mb-16 -mt-8 md:-mt-24"
+      {/* Cinematic Video Background - Static now */}
+      <div
+        className="absolute inset-0 z-0"
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20 z-10" />
+        <video
+          ref={videoRef}
+          // onLoadedData={() => setIsVideoLoaded(true)} // Not needed if we don't hide it
+          autoPlay
+          loop
+          muted={true}
+          playsInline
+          className="w-full h-full object-cover"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
-            className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-xl border border-white/30 rounded-full px-4 py-2 md:px-6 md:py-3 mb-4 md:mb-8 shadow-2xl"
-          >
-            <span className="text-white font-medium text-xs md:text-base">UAE Licensed Travel Experts</span>
-          </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-2 drop-shadow-2xl"
-            style={{ lineHeight: '1.2' }}
-          >
-            <GradientText
-              colors={["#40ffaa", "#F5A623", "#40ffaa", "#F5A623", "#40ffaa"]}
-              animationSpeed={3}
-              showBorder={false}
-            >
-              Explore the world with Incel Tourism
-            </GradientText>
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-sm sm:text-base md:text-xl lg:text-2xl text-white/95 drop-shadow-lg max-w-3xl mx-auto leading-relaxed mb-4 md:mb-8 px-2"
+          <source src="/dubai.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      {/* Main Content */}
+      <div
+        className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4 max-w-7xl mx-auto"
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1.8, ease: "easeOut" }}
+          className="space-y-6"
+        >
+          {/* Badge */}
+          <div className="flex justify-center mb-8">
+            <div className="px-6 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white/90 text-sm tracking-[0.2em] uppercase font-light">
+              Redefining Luxury Travel
+            </div>
+          </div>
+
+          {/* Huge Cinematic Title */}
+          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-bold text-white tracking-tighter leading-[0.9] mix-blend-overlay opacity-90">
+            DISCOVER
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-200 to-neutral-500">THE WORLD</span>
+          </h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 2.2 }}
+            className="text-lg md:text-xl text-white/70 max-w-xl mx-auto font-light leading-relaxed mt-8 mb-16 md:mb-20"
           >
             {subheading}
           </motion.p>
-          
+
+          {/* Floating Actions */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
-            className="flex justify-center"
+            transition={{ duration: 1, delay: 2.4 }}
+            className="flex items-center justify-center gap-6 mt-8"
           >
             <Button
+              size="lg"
               onClick={() => setIsBookNowOpen(true)}
-              className="bg-yellow-400 hover:bg-yellow-500 text-neutral-900 border-0 shadow-lg hover:shadow-xl transition-all px-6 py-4 md:px-8 md:py-6 text-base md:text-lg font-semibold rounded-full"
+              className="h-16 px-10 rounded-full bg-white text-black hover:bg-neutral-200 font-bold text-lg tracking-wide transition-all shadow-xl hover:scale-105"
             >
               Book Now
             </Button>
           </motion.div>
         </motion.div>
+      </div>
 
-        {/* Book Now Modal */}
-        <Dialog open={isBookNowOpen} onOpenChange={setIsBookNowOpen}>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white text-neutral-900">
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-center text-neutral-900">Book Your Travel Package</DialogTitle>
-              <DialogDescription className="text-center text-neutral-700">
-                Fill in your details and we'll get back to you shortly
+      {/* Book Now Modal */}
+      <Dialog open={isBookNowOpen} onOpenChange={setIsBookNowOpen}>
+        <DialogContent className="max-w-2xl bg-neutral-900/95 backdrop-blur-3xl border-white/10 shadow-2xl text-white p-0 overflow-hidden rounded-3xl">
+          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-accent" />
+
+          <div className="p-8">
+            <DialogHeader className="mb-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                  <Plane className="w-5 h-5 text-blue-400" />
+                </div>
+                <span className="text-blue-400 font-medium tracking-wide text-sm">BOOKING REQUEST</span>
+              </div>
+              <DialogTitle className="text-4xl font-bold">Where to next?</DialogTitle>
+              <DialogDescription className="text-neutral-400 text-lg">
+                Your luxury escape begins with this form.
               </DialogDescription>
             </DialogHeader>
-            
-            <form className="space-y-6 mt-4" onSubmit={(e) => {
+
+            <form className="space-y-6" onSubmit={(e) => {
               e.preventDefault();
-              toast.success('Booking inquiry submitted! We\'ll contact you soon.');
+              toast.success('Request received. Our concierge will contact you shortly.');
               setIsBookNowOpen(false);
             }}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-neutral-900">Full Name *</label>
-                  <Input type="text" placeholder="John Doe" required className="text-neutral-900 bg-neutral-100 border-[0.5px]" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Full Name</label>
+                  <Input placeholder="John Doe" required className="bg-white/5 border-white/10 focus:border-blue-500/50 text-white h-12 rounded-xl" />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-neutral-900">Email *</label>
-                  <Input type="email" placeholder="john@example.com" required className="text-neutral-900 bg-neutral-100 border-[0.5px]" />
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Contact</label>
+                  <Input placeholder="Email or Phone" required className="bg-white/5 border-white/10 focus:border-blue-500/50 text-white h-12 rounded-xl" />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-neutral-900">Phone Number *</label>
-                  <Input type="tel" placeholder="+971 50 123 4567" required className="text-neutral-900 bg-neutral-100 border-[0.5px]" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-neutral-900">Travel Date</label>
-                  <Input type="date" className="text-neutral-900 bg-neutral-100 border-[0.5px]" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-neutral-900">Destination</label>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Destination</label>
                   <Select>
-                    <SelectTrigger className="text-neutral-900 bg-neutral-100 border-[0.5px]">
-                      <SelectValue placeholder="Select destination" />
+                    <SelectTrigger className="bg-white/5 border-white/10 text-white h-12 rounded-xl">
+                      <SelectValue placeholder="Select Destination" />
                     </SelectTrigger>
-                    <SelectContent className="text-neutral-900">
-                      <SelectItem value="dubai">Dubai, UAE</SelectItem>
+                    <SelectContent className="bg-neutral-800 border-white/10 text-white">
+                      <SelectItem value="dubai">Dubai</SelectItem>
                       <SelectItem value="maldives">Maldives</SelectItem>
-                      <SelectItem value="turkey">Turkey</SelectItem>
-                      <SelectItem value="egypt">Egypt</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="europe">Europe</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-neutral-900">Number of Travelers</label>
-                  <Input type="number" placeholder="2" min="1" className="text-neutral-900 bg-neutral-100 border-[0.5px]" />
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Dates</label>
+                  <Input type="date" className="bg-white/5 border-white/10 focus:border-blue-500/50 text-white h-12 rounded-xl" />
                 </div>
               </div>
-              
-              <div>
-                <label className="block text-sm font-medium mb-2 text-neutral-900">Message</label>
-                <Textarea
-                  className="min-h-[100px] text-neutral-900 bg-neutral-100 border-[0.5px]"
-                  placeholder="Tell us about your travel preferences..."
-                />
-              </div>
-              
-              <div className="flex gap-4 pt-4">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setIsBookNowOpen(false)}
-                  className="flex-1 text-neutral-900"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-neutral-900"
-                >
-                  Submit Booking
-                </Button>
+
+              <div className="flex justify-end gap-3 pt-4 border-t border-white/10">
+                <Button type="button" variant="ghost" onClick={() => setIsBookNowOpen(false)} className="text-neutral-400 hover:text-white rounded-xl">Cancel</Button>
+                <Button type="submit" className="bg-white text-black hover:bg-neutral-200 px-8 rounded-xl font-bold h-12">Submit Request</Button>
               </div>
             </form>
-          </DialogContent>
-        </Dialog>
-
-        {/* Flight Inquiry Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 60, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.7, duration: 0.8, type: "spring", stiffness: 100 }}
-          className="max-w-6xl mx-auto space-y-6 hidden"
-        >
-          {/* Main Flight Search */}
-          <div className="bg-white/15 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-2xl border border-white/20">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-              {/* From Where */}
-              <div>
-                <label className="block text-white text-sm mb-2">From where?</label>
-                <Select>
-                  <SelectTrigger className="!h-12 bg-white border-neutral-300 hover:border-neutral-400 focus:border-primary">
-                    <SelectValue placeholder="CHOOSE COUNTRY" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="nigeria">Nigeria</SelectItem>
-                    <SelectItem value="ghana">Ghana</SelectItem>
-                    <SelectItem value="kenya">Kenya</SelectItem>
-                    <SelectItem value="southafrica">South Africa</SelectItem>
-                    <SelectItem value="ethiopia">Ethiopia</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* To Where */}
-              <div>
-                <label className="block text-white text-sm mb-2">To where?</label>
-                <Select>
-                  <SelectTrigger className="!h-12 bg-white border-neutral-300 hover:border-neutral-400 focus:border-primary">
-                    <SelectValue placeholder="CHOOSE COUNTRY" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="uae">United Arab Emirates</SelectItem>
-                    <SelectItem value="turkey">Turkey</SelectItem>
-                    <SelectItem value="maldives">Maldives</SelectItem>
-                    <SelectItem value="egypt">Egypt</SelectItem>
-                    <SelectItem value="saudi">Saudi Arabia</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Leaving On */}
-              <div>
-                <label className="block text-white text-sm mb-2">Leaving on</label>
-                <Input
-                  type="date"
-                  className="w-full !h-12 bg-white border-neutral-300 hover:border-neutral-400 focus:border-primary !px-2.5 sm:!px-3 !text-sm !rounded-md [&::-webkit-calendar-picker-indicator]:mr-0 [&::-webkit-date-and-time-value]:text-left"
-                  style={{ 
-                    borderRadius: '0.375rem',
-                    WebkitAppearance: 'none',
-                    MozAppearance: 'none',
-                    appearance: 'none'
-                  }}
-                />
-              </div>
-
-              {/* Returning On */}
-              <div>
-                <label className="block text-white text-sm mb-2">Returning on</label>
-                <Input
-                  type="date"
-                  className="w-full !h-12 bg-white border-neutral-300 hover:border-neutral-400 focus:border-primary !px-2.5 sm:!px-3 !text-sm !rounded-md [&::-webkit-calendar-picker-indicator]:mr-0 [&::-webkit-date-and-time-value]:text-left"
-                  style={{ 
-                    borderRadius: '0.375rem',
-                    WebkitAppearance: 'none',
-                    MozAppearance: 'none',
-                    appearance: 'none'
-                  }}
-                />
-              </div>
-
-              {/* Inquiry Button */}
-              <div className="flex items-end">
-                <motion.div 
-                  className="w-full"
-                  whileHover={{ scale: 1.02 }} 
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Button
-                    onClick={handleFlightInquiry}
-                    disabled={isSearching}
-                    className="w-full h-12 bg-[#F5A623] hover:bg-[#E09612] text-white border-0 shadow-lg hover:shadow-xl transition-all uppercase tracking-wide font-semibold"
-                  >
-                    {isSearching ? (
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      >
-                        <Plane className="w-5 h-5" />
-                      </motion.div>
-                    ) : (
-                      'INQUIRY FLIGHT'
-                    )}
-                  </Button>
-                </motion.div>
-              </div>
-            </div>
           </div>
-
-          {/* Service Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 pb-8 md:pb-0">
-            {[
-              { label: 'Find Hotels', icon: Hotel, href: '#/hotels' },
-              { label: 'Visa', icon: FileText, href: '#/global-visa' },
-              { label: 'Car Hire', icon: Car, href: '#/car-hire' },
-              { label: 'Tour', icon: Map, href: '#/local-tours' },
-              { label: 'Cruise', icon: Ship, href: '#/cruise' }
-            ].map((service, index) => (
-              <motion.a
-                key={service.label}
-                href={service.href}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9 + index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 border-2 border-white/60 hover:border-white text-white hover:bg-white/10 rounded-lg backdrop-blur-sm transition-all flex items-center gap-2"
-              >
-                <service.icon className="w-5 h-5" />
-                {service.label}
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
-
-
-      </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
