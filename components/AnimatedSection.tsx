@@ -21,7 +21,7 @@ export function AnimatedSection({ children, className = '', delay = 0 }: Animate
   );
 }
 
-export function StaggerContainer({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function StaggerContainer({ children, className = '', style }: { children: ReactNode; className?: string; style?: React.CSSProperties }) {
   return (
     <motion.div
       initial="hidden"
@@ -35,6 +35,7 @@ export function StaggerContainer({ children, className = '' }: { children: React
         }
       }}
       className={className}
+      style={style}
     >
       {children}
     </motion.div>
