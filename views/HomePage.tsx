@@ -81,23 +81,21 @@ export function HomePage() {
           </div>
 
           <div className="relative mb-12">
-            {/* Custom Navigation */}
-            <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between z-30 pointer-events-none px-2 lg:-mx-12">
-              <button
-                onClick={handlePrev}
-                className="w-14 h-14 bg-white dark:bg-neutral-800 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all pointer-events-auto border border-neutral-100 dark:border-neutral-700"
-              >
-                <ChevronLeft className="w-6 h-6 text-neutral-900 dark:text-white" />
-              </button>
-              <button
-                onClick={handleNext}
-                className="w-14 h-14 bg-white dark:bg-neutral-800 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all pointer-events-auto border border-neutral-100 dark:border-neutral-700"
-              >
-                <ChevronRight className="w-6 h-6 text-neutral-900 dark:text-white" />
-              </button>
-            </div>
+            {/* Custom Navigation - Positioned outside cards */}
+            <button
+              onClick={handlePrev}
+              className="absolute left-0 lg:-left-6 top-1/2 -translate-y-1/2 z-[60] w-12 h-12 bg-white dark:bg-neutral-800 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all border border-neutral-100 dark:border-neutral-700"
+            >
+              <ChevronLeft className="w-5 h-5 text-neutral-900 dark:text-white" />
+            </button>
+            <button
+              onClick={handleNext}
+              className="absolute right-0 lg:-right-6 top-1/2 -translate-y-1/2 z-[60] w-12 h-12 bg-white dark:bg-neutral-800 rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-all border border-neutral-100 dark:border-neutral-700"
+            >
+              <ChevronRight className="w-5 h-5 text-neutral-900 dark:text-white" />
+            </button>
 
-            <div className="overflow-hidden relative -mx-4 px-4 py-8">
+            <div className="overflow-hidden relative mx-8 lg:mx-0 px-4 py-8">
               <motion.div
                 className="flex"
                 animate={{ x: `-${currentIndex * (100 / slidesPerView)}%` }}

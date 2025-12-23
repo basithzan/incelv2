@@ -53,9 +53,8 @@ export function PlanningTripSection() {
               <h2
                 className="mb-1 text-4xl lg:text-5xl font-bold relative z-10"
               >
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-                  Planning a Trip?
-                </span>
+                <span className="text-neutral-900">Planning a </span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Trip?</span>
               </h2>
 
               <p

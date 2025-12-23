@@ -99,9 +99,8 @@ export function WhatWeOffer() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              What we offer
-            </span>
+            <span className="text-neutral-900">What we </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">offer</span>
           </motion.h2>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
             Explore the world and become your own tour guide.
