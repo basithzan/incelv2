@@ -692,7 +692,7 @@ export function UAEVisaPage() {
                             value={formData.fullName}
                             onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                             required
-                            className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                            className="h-14 bg-neutral-50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
                             placeholder="Enter your full name"
                           />
                         </div>
@@ -703,7 +703,7 @@ export function UAEVisaPage() {
                             value={formData.passportNo}
                             onChange={(e) => setFormData({ ...formData, passportNo: e.target.value })}
                             required
-                            className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                            className="h-14 bg-neutral-50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
                             placeholder="Enter passport number"
                           />
                         </div>
@@ -718,7 +718,7 @@ export function UAEVisaPage() {
                             value={formData.dob}
                             onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
                             required
-                            className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                            className="h-14 bg-neutral-50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
                           />
                         </div>
                         <div className="space-y-3">
@@ -729,7 +729,7 @@ export function UAEVisaPage() {
                             value={formData.travelDate}
                             onChange={(e) => setFormData({ ...formData, travelDate: e.target.value })}
                             required
-                            className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                            className="h-14 bg-neutral-50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
                           />
                         </div>
                       </div>
@@ -743,7 +743,7 @@ export function UAEVisaPage() {
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             required
-                            className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                            className="h-14 bg-neutral-50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
                             placeholder="name@example.com"
                           />
                         </div>
@@ -755,7 +755,7 @@ export function UAEVisaPage() {
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             required
-                            className="h-14 bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
+                            className="h-14 bg-neutral-50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all"
                             placeholder="+1 234 567 890"
                           />
                         </div>
@@ -768,7 +768,7 @@ export function UAEVisaPage() {
                           value={formData.notes}
                           onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                           rows={3}
-                          className="bg-neutral-50/50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all resize-none px-4 pt-4 pb-4"
+                          className="bg-neutral-50 border-neutral-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 rounded-2xl text-lg transition-all resize-none px-4 pt-4 pb-4"
                           placeholder="Any special requirements or questions?"
                         />
                       </div>
