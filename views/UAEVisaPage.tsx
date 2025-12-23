@@ -15,6 +15,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { PageHero } from '../components/PageHero';
 
+// Comprehensive nationality list
+const nationalities = [
+  'Afghanistan', 'Albania', 'Algeria', 'Argentina', 'Australia', 'Austria', 'Bahrain', 'Bangladesh',
+  'Belgium', 'Brazil', 'Bulgaria', 'Canada', 'China', 'Colombia', 'Croatia', 'Czech Republic',
+  'Denmark', 'Egypt', 'Estonia', 'Finland', 'France', 'Germany', 'Ghana', 'Greece', 'Hungary',
+  'Iceland', 'India', 'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Japan', 'Jordan',
+  'Kenya', 'Kuwait', 'Lebanon', 'Malaysia', 'Maldives', 'Mexico', 'Morocco', 'Nepal', 'Netherlands',
+  'New Zealand', 'Nigeria', 'Norway', 'Oman', 'Pakistan', 'Philippines', 'Poland', 'Portugal',
+  'Qatar', 'Romania', 'Russia', 'Saudi Arabia', 'Singapore', 'South Africa', 'South Korea', 'Spain',
+  'Sri Lanka', 'Sweden', 'Switzerland', 'Syria', 'Thailand', 'Tunisia', 'Turkey', 'Ukraine',
+  'United Kingdom', 'United States', 'Vietnam', 'Yemen', 'Other'
+];
+
 // Nationality-specific document requirements
 const nationalityDocuments: Record<string, {
   name: string;
@@ -27,7 +40,7 @@ const nationalityDocuments: Record<string, {
       'Valid passport (minimum 6 months validity)',
       'Passport-size photograph (white background)',
       'Confirmed return flight ticket',
-      'Hotel reservation or accommodation proof',
+      'Hotel booking confirmation (Mandatory)',
       'Bank statement (last 3 months)',
       'Employment letter / Business registration',
       'Travel insurance'
@@ -43,7 +56,7 @@ const nationalityDocuments: Record<string, {
       'Valid passport (minimum 6 months validity)',
       'Passport-size photograph (white background)',
       'Confirmed return flight ticket',
-      'Hotel reservation or accommodation proof',
+      'Hotel booking confirmation (Mandatory)',
       'Bank statement (last 3 months)',
       'Employment letter / Business registration',
       'Travel insurance'
@@ -59,7 +72,7 @@ const nationalityDocuments: Record<string, {
       'Valid passport (minimum 6 months validity)',
       'Passport-size photograph (white background)',
       'Confirmed return flight ticket',
-      'Hotel reservation or accommodation proof',
+      'Hotel booking confirmation (Mandatory)',
       'Bank statement (last 3 months)',
       'Employment letter / Business registration'
     ],
@@ -73,7 +86,7 @@ const nationalityDocuments: Record<string, {
       'Valid passport (minimum 6 months validity)',
       'Passport-size photograph (white background)',
       'Confirmed return flight ticket',
-      'Hotel reservation or accommodation proof',
+      'Hotel booking confirmation (Mandatory)',
       'Proof of sufficient funds'
     ],
     additionalQuestions: [
@@ -86,7 +99,7 @@ const nationalityDocuments: Record<string, {
       'Valid passport (minimum 6 months validity)',
       'Passport-size photograph (white background)',
       'Confirmed return flight ticket',
-      'Hotel reservation or accommodation proof',
+      'Hotel booking confirmation (Mandatory)',
       'Bank statement (last 3 months)',
       'PAN Card copy',
       'ITR (last 2 years) for business travelers'
@@ -102,7 +115,7 @@ const nationalityDocuments: Record<string, {
       'Valid passport (minimum 6 months validity)',
       'Passport-size photograph (white background)',
       'Confirmed return flight ticket',
-      'Hotel reservation or accommodation proof',
+      'Hotel booking confirmation (Mandatory)',
       'Bank statement (last 6 months)',
       'Employment letter with salary details',
       'CNIC copy',
@@ -119,7 +132,7 @@ const nationalityDocuments: Record<string, {
       'Valid passport (minimum 6 months validity)',
       'Passport-size photograph (white background)',
       'Confirmed return flight ticket',
-      'Hotel reservation or accommodation proof',
+      'Hotel booking confirmation (Mandatory)',
       'Proof of sufficient funds',
       'Travel insurance (recommended)'
     ],
@@ -130,11 +143,21 @@ const nationalityDocuments: Record<string, {
   }
 };
 
-// Visa types with pricing
+// Helper function to get nationality key from name
+const getNationalityKey = (name: string): string => {
+  const normalized = name.toLowerCase().replace(/\s+/g, '');
+  if (nationalityDocuments[normalized]) {
+    return normalized;
+  }
+  return 'other';
+};
+
+// Visa types
 const visaTypes = [
-  { id: '30days', name: 'Tourist Visa - 30 Days', processingTime: '3-5 working days', price: 899 },
-  { id: '60days', name: 'Tourist Visa - 60 Days', processingTime: '3-5 working days', price: 1599 },
-  { id: '90days', name: 'Multiple Entry - 90 Days', processingTime: '5-7 working days', price: 2499 }
+  { id: '30days', name: 'Tourist Visa - 30 Days', processingTime: '2 full working days' },
+  { id: '60days', name: 'Tourist Visa - 60 Days', processingTime: '2 full working days' },
+  { id: '30days-multiple', name: 'Multiple Entry - 30 Days', processingTime: '2 full working days' },
+  { id: '60days-multiple', name: 'Multiple Entry - 60 Days', processingTime: '2 full working days' }
 ];
 
 export function UAEVisaPage() {
@@ -143,6 +166,7 @@ export function UAEVisaPage() {
     fullName: '',
     nationality: '',
     visaType: '',
+    visaChangeFacility: [] as string[], // ['bus', 'flight'] or both
     passportNo: '',
     dob: '',
     travelDate: '',
@@ -190,7 +214,8 @@ export function UAEVisaPage() {
     setIsPaymentModalOpen(false);
   };
 
-  const selectedNationality = nationalityDocuments[formData.nationality];
+  const nationalityKey = getNationalityKey(formData.nationality);
+  const selectedNationality = nationalityDocuments[nationalityKey];
   const selectedVisa = visaTypes.find(v => v.id === formData.visaType);
 
   const canProceedToStep2 = formData.nationality !== '';
@@ -321,24 +346,23 @@ export function UAEVisaPage() {
                       <p className="text-neutral-600">Choose your country to see the required documents</p>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      {Object.entries(nationalityDocuments).map(([key, value]) => (
-                        <button
-                          key={key}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, nationality: key })}
-                          className={`p-4 rounded-2xl border-2 transition-all text-left hover:shadow-lg ${
-                            formData.nationality === key
-                              ? 'border-primary bg-primary/5 shadow-lg'
-                              : 'border-neutral-200 hover:border-primary/50'
-                          }`}
-                        >
-                          <span className="font-semibold text-neutral-900 block">{value.name}</span>
-                          {formData.nationality === key && (
-                            <Check className="w-5 h-5 text-primary mt-2" />
-                          )}
-                        </button>
-                      ))}
+                    <div className="space-y-3">
+                      <Label className="text-base font-semibold text-neutral-700">Nationality</Label>
+                      <Select
+                        value={formData.nationality}
+                        onValueChange={(value) => setFormData({ ...formData, nationality: value })}
+                      >
+                        <SelectTrigger className="h-14 bg-neutral-50/50 border-neutral-200 rounded-2xl text-lg">
+                          <SelectValue placeholder="Select your nationality" />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-xl border-neutral-100 shadow-xl max-h-[300px]">
+                          {nationalities.map((nationality) => (
+                            <SelectItem key={nationality} value={nationality}>
+                              {nationality}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
 
                     <Button
@@ -395,6 +419,66 @@ export function UAEVisaPage() {
                         </button>
                       ))}
                     </div>
+
+                    {/* Visa Change Facility */}
+                    {formData.visaType && (
+                      <div className="space-y-4 mt-8 pt-8 border-t border-neutral-200">
+                        <Label className="text-base font-semibold text-neutral-700">Visa Change Facility (Optional)</Label>
+                        <p className="text-sm text-neutral-600 mb-4">Select your preferred method(s) for visa change, if needed</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const current = formData.visaChangeFacility || [];
+                              const newValue = current.includes('bus')
+                                ? current.filter(v => v !== 'bus')
+                                : [...current, 'bus'];
+                              setFormData({ ...formData, visaChangeFacility: newValue });
+                            }}
+                            className={`p-4 rounded-2xl border-2 transition-all text-left hover:shadow-lg ${
+                              formData.visaChangeFacility?.includes('bus')
+                                ? 'border-primary bg-primary/5 shadow-lg'
+                                : 'border-neutral-200 hover:border-primary/50'
+                            }`}
+                          >
+                            <div className="flex justify-between items-center">
+                              <div>
+                                <span className="font-semibold text-neutral-900 block">By Bus</span>
+                                <span className="text-sm text-neutral-500">Land border crossing</span>
+                              </div>
+                              {formData.visaChangeFacility?.includes('bus') && (
+                                <Check className="w-5 h-5 text-primary" />
+                              )}
+                            </div>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const current = formData.visaChangeFacility || [];
+                              const newValue = current.includes('flight')
+                                ? current.filter(v => v !== 'flight')
+                                : [...current, 'flight'];
+                              setFormData({ ...formData, visaChangeFacility: newValue });
+                            }}
+                            className={`p-4 rounded-2xl border-2 transition-all text-left hover:shadow-lg ${
+                              formData.visaChangeFacility?.includes('flight')
+                                ? 'border-primary bg-primary/5 shadow-lg'
+                                : 'border-neutral-200 hover:border-primary/50'
+                            }`}
+                          >
+                            <div className="flex justify-between items-center">
+                              <div>
+                                <span className="font-semibold text-neutral-900 block">By Flight</span>
+                                <span className="text-sm text-neutral-500">Airport transit</span>
+                              </div>
+                              {formData.visaChangeFacility?.includes('flight') && (
+                                <Check className="w-5 h-5 text-primary" />
+                              )}
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+                    )}
 
                     <div className="flex gap-4 mt-8">
                       <Button
