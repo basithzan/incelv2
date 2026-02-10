@@ -81,7 +81,7 @@ export function PackageCard({
           transformStyle: "preserve-3d",
         }}
         className="group relative h-[450px] w-full cursor-pointer rounded-[2rem] bg-neutral-900 transition-all duration-200 ease-linear shadow-xl"
-        onClick={() => window.location.href = `#/packages/${id}`}
+        onClick={() => window.location.href = `/packages/${id}`}
       >
         {/* Reflection/Sheen Effect */}
         <div

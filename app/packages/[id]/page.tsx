@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Navigation } from '../../../components/Navigation';
 import { Footer } from '../../../components/Footer';
@@ -11,10 +12,12 @@ import { MapPin, Calendar, Clock, CheckCircle2, XCircle, ArrowRight, MessageCirc
 import { Button } from '../../../components/ui/button';
 
 import { PageHero } from '../../../components/PageHero';
+import { BookingFormModal } from '../../../components/BookingFormModal';
 
 export default function PackageDetail() {
   const params = useParams();
   const packageId = (params?.id as string) || '';
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   const packages = [
     {
@@ -216,7 +219,10 @@ export default function PackageDetail() {
                     </div>
 
                     <div className="space-y-4">
-                      <Button className="w-full h-14 text-lg bg-neutral-900 hover:bg-neutral-800 text-white rounded-xl shadow-lg hover:shadow-xl transition-all">
+                      <Button
+                        onClick={() => setIsBookingOpen(true)}
+                        className="w-full h-14 text-lg bg-neutral-900 hover:bg-neutral-800 text-white rounded-xl shadow-lg hover:shadow-xl transition-all"
+                      >
                         Book Now <ArrowRight className="w-5 h-5 ml-2" />
                       </Button>
                       <Button variant="outline" className="w-full h-14 text-lg border-neutral-200 hover:bg-neutral-50 text-neutral-900 rounded-xl">
@@ -247,6 +253,14 @@ export default function PackageDetail() {
       <Footer />
       <WhatsAppButton />
       <Toaster position="top-right" richColors />
+      <BookingFormModal
+        isOpen={isBookingOpen}
+        onClose={() => setIsBookingOpen(false)}
+        packageId={pkg.id}
+        packageTitle={pkg.title}
+        packagePrice={pkg.price}
+        packageDuration={pkg.duration}
+      />
     </div>
   );
 }
