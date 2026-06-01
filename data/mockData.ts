@@ -1,47 +1,47 @@
 export const packages = [
   {
     id: 'dubai-explorer',
-    title: 'Dubai Explorer - 5 Days Ultimate Experience',
-    image: 'https://images.unsplash.com/photo-1643904736472-8b77e93ca3d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxEdWJhaSUyMHNreWxpbmUlMjBCdXJqJTIwS2hhbGlmYXxlbnwxfHx8fDE3NjIyODc0OTN8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    title: 'Futuristic Dubai Escape',
+    image: '/packages/futuristic-dubai-escape.jpg',
     location: 'Dubai, UAE',
-    duration: '5 Days / 4 Nights',
-    price: 3999,
+    duration: '3 Nights',
+    price: 1399,
     category: 'Inbound',
     highlights: [
-      'Burj Khalifa visit with Sky Lounge access',
-      'Desert Safari with BBQ dinner',
-      'Dubai Marina cruise',
-      '4-star hotel accommodation'
+      '4-star hotel stay options',
+      'Dinner dhow cruise in Dubai Marina',
+      'Museum of the Future entry tickets',
+      '30 days UAE visa'
     ]
   },
   {
     id: 'maldives-paradise',
-    title: 'Maldives Paradise - Luxury Beach Escape',
-    image: 'https://images.unsplash.com/photo-1637576308588-6647bf80944d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxNYWxkaXZlcyUyMG92ZXJ3YXRlciUyMGJ1bmdhbG93fGVufDF8fHx8MTc2MjM3MjI5MHww&ixlib=rb-4.1.0&q=80&w=1080',
-    location: 'Maldives',
-    duration: '7 Days / 6 Nights',
-    price: 8999,
-    category: 'Outbound',
+    title: 'Dubai Family Adventure',
+    image: '/packages/dubai-family-adventure.jpg',
+    location: 'Dubai, UAE',
+    duration: '3 Nights',
+    price: 1569,
+    category: 'Family',
     highlights: [
-      'Overwater villa accommodation',
-      'Snorkeling & diving excursions',
-      'All-inclusive dining',
-      'Spa treatments included'
+      '4-star hotel stay',
+      'Wild Wadi or Aquafun entry tickets',
+      'Dinner dhow cruise in Dubai Marina',
+      'All transportation included'
     ]
   },
   {
     id: 'umrah-premium',
-    title: 'Premium Umrah Package - Complete Spiritual Journey',
-    image: 'https://images.unsplash.com/photo-1641108548286-6952aa3e3e3f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxNZWNjYSUyMHBpbGdyaW1hZ2V8ZW58MXx8fHwxNzYyMzM0Nzc4fDA&ixlib=rb-4.1.0&q=80&w=1080',
-    location: 'Mecca & Medina',
-    duration: '10 Days / 9 Nights',
-    price: 5499,
-    category: 'Umrah',
+    title: 'Hatta Luxury Adventure',
+    image: '/packages/hatta-luxury-adventure.jpg',
+    location: 'Hatta, UAE',
+    duration: '4 Nights',
+    price: 1699,
+    category: 'Adventure',
     highlights: [
-      '5-star hotels near Haram',
-      'Guided Ziyarat tours',
-      'Full-board meals',
-      'Visa processing included'
+      'One-day Hatta tour',
+      'Dinner dhow cruise in Dubai Marina',
+      '30 days UAE visa',
+      'All transportation included'
     ]
   },
   {

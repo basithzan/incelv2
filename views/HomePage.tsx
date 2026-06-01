@@ -59,7 +59,7 @@ export function HomePage() {
       <section className="relative z-20 -mt-32 pb-12 px-4 pointer-events-none">
         <div className="max-w-[1400px] mx-auto pointer-events-auto">
           <div className="relative z-10">
-            <LatestPackagesCarousel packages={packages} />
+            <LatestPackagesCarousel packages={packages.slice(0, 3)} />
           </div>
         </div>
       </section>

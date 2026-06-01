@@ -171,7 +171,7 @@ export function LatestPackagesCarousel({ packages }: LatestPackagesCarouselProps
                                 position: 'absolute',
                                 transformStyle: 'preserve-3d',
                             }}
-                            className={`w-[90%] md:w-[60%] lg:w-[520px] h-full rounded-[2rem] overflow-hidden shadow-2xl ${
+                            className={`w-[90%] md:w-[60%] lg:w-[440px] h-full rounded-[2rem] overflow-hidden shadow-2xl ${
                                 isCenter 
                                     ? 'shadow-black/50 cursor-pointer' 
                                     : 'shadow-black/20 pointer-events-none grayscale-[0.2]'
@@ -181,7 +181,7 @@ export function LatestPackagesCarousel({ packages }: LatestPackagesCarouselProps
                             <ImageWithFallback
                                 src={pkg.image}
                                 alt={pkg.title}
-                                className={`w-full h-full object-cover transition-transform duration-700 ${
+                                className={`w-full h-full object-cover object-top transition-transform duration-700 ${
                                     isCenter ? 'scale-100' : 'scale-105'
                                 }`}
                             />
